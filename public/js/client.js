@@ -1,4 +1,4 @@
-const API_URL = "https://cloud-computing-backend.onrender.com/api/products";  // 👈 nhớ thêm nếu chưa có
+const API_URL = "/api/products";  // 👈 nhớ thêm nếu chưa có
 const socket = io();
 
 // 🔹 DOM elements
