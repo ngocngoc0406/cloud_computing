@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý Sản phẩm - DPL Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+    body {
+      background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .main-banner {
+      background: linear-gradient(90deg, #4f8cff 0%, #38b6ff 100%);
+      border-radius: 24px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.09);
+      padding: 36px 0 24px 0;
+      margin-bottom: 32px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+    .main-banner .logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px auto;
+      box-shadow: 0 2px 12px rgba(44, 62, 80, 0.15);
+    }
+    .main-banner .logo i {
+      font-size: 2.5rem;
+      color: #4f8cff;
+    }
+    .main-banner h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    .main-banner p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      margin-bottom: 0;
+    }
+    .nav-pills .nav-link.active {
+      background: linear-gradient(90deg, #4f8cff 0%, #38b6ff 100%);
+      color: #fff !important;
+      font-weight: 700;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+    }
+    .nav-pills .nav-link {
+      color: #4f8cff;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .stat-card {
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(44, 62, 80, 0.07);
+      padding: 18px 0;
+      text-align: center;
+      margin-bottom: 24px;
+      transition: transform 0.15s;
+    }
+    .stat-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 6px 24px rgba(44, 62, 80, 0.13);
+    }
+    .stat-card i {
+      font-size: 2rem;
+      color: #4f8cff;
+      margin-bottom: 8px;
+    }
+    .stat-card h4 {
+      color: #4f8cff;
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+    .stat-card p {
+      color: #2d3a4b;
+      margin-bottom: 0;
+      font-size: 1.05rem;
+    }
+    .card {
+      border-radius: 20px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.09);
+      border: none;
+    }
+    .card-header {
+      border-radius: 20px 20px 0 0 !important;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 1.2rem;
+      background: linear-gradient(90deg, #4f8cff 0%, #38b6ff 100%);
+      color: #fff !important;
+      border: none;
+    }
+    .card-header.bg-success {
+      background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%) !important;
+      color: #fff !important;
+    }
+    .form-label {
+      font-weight: 600;
+      color: #2d3a4b;
+      margin-bottom: 6px;
+    }
+    .form-control {
+      border-radius: 10px;
+      box-shadow: none;
+      border: 1px solid #d1d5db;
+      font-size: 1.05rem;
+      padding: 0.7rem 1rem;
+    }
+    .btn-success, .btn-primary {
+      border-radius: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+      transition: transform 0.1s;
+    }
+    .btn-success:hover, .btn-primary:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 16px rgba(44, 62, 80, 0.12);
+    }
+    .btn-secondary {
+      border-radius: 10px;
+      font-weight: 500;
+    }
+    .table thead th {
+      background: #f8fafc;
+      color: #2d3a4b;
+      font-weight: 700;
+      border-top: none;
+      font-size: 1.05rem;
+    }
+    .table-striped>tbody>tr:nth-of-type(odd) {
+      background-color: #f4f8fb;
+    }
+    .table-hover tbody tr:hover {
+      background-color: #e3f2fd;
+      transition: background 0.2s;
+    }
+    .alert-custom {
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(44, 62, 80, 0.10);
+      font-weight: 500;
+      font-size: 1.08rem;
+      margin-bottom: 24px;
+      background: linear-gradient(90deg, #f8fafc 0%, #e0eafc 100%);
+      color: #2d3a4b;
+      border: none;
+    }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #4f8cff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      opacity: 0.85;
+    }
+    @media (max-width: 576px) {
+      .main-banner h1 { font-size: 1.5rem; }
+      .main-banner .logo { width: 50px; height: 50px; }
+      .container { padding: 0 4px; }
+      .card, .card-header { border-radius: 12px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <!-- Banner -->
+    <div class="main-banner mb-4">
+      <div class="logo mb-2">
+        <i class="fa-solid fa-store"></i>
+      </div>
+      <h1>DPL Shop</h1>
+      <p>Hệ thống quản lý sản phẩm chuyên nghiệp, hiện đại và dễ sử dụng</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="mb-4">
+      <ul class="nav nav-pills justify-content-center">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link active"><i class="fa-solid fa-boxes-stacked me-1"></i>Quản lý Sản phẩm</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link disabled"><i class="fa-solid fa-users me-1"></i>Quản lý Người dùng</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link disabled"><i class="fa-solid fa-chart-line me-1"></i>Báo cáo</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Thông báo -->
+    <div id="alertBox" class="alert alert-custom d-none" role="alert"></div>
+
+    <!-- Thống kê nhanh -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="stat-card">
+          <i class="fa-solid fa-box"></i>
+          <h4 id="totalProducts">0</h4>
+          <p>Sản phẩm</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card">
+          <i class="fa-solid fa-coins"></i>
+          <h4 id="totalValue">0 VNĐ</h4>
+          <p>Tổng giá trị</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <h4 id="lastUpdate">--</h4>
+          <p>Cập nhật gần nhất</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form thêm/cập nhật -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-success text-white">
+  <h5 id="formTitle" class="mb-0">
+    <i class="fa-solid fa-plus me-2"></i>Thêm sản phẩm
+  </h5>
+</div>
+
+      <div class="card-body">
+        <form id="productForm" class="row g-3">
+          <input type="hidden" id="productId">
+          <div class="col-md-6">
+            <label for="name" class="form-label">Tên sản phẩm</label>
+            <input type="text" id="name" class="form-control" required placeholder="Nhập tên sản phẩm...">
+          </div>
+          <div class="col-md-6">
+            <label for="price" class="form-label">Giá (VNĐ)</label>
+            <input type="number" id="price" class="form-control" required placeholder="Nhập giá...">
+          </div>
+          <div class="col-12 d-flex gap-2">
+            <button type="submit" id="submitBtn" class="btn btn-success"><i class="fa-solid fa-check me-1"></i>Thêm sản phẩm</button>
+            <button type="button" id="cancelBtn" class="btn btn-secondary"><i class="fa-solid fa-xmark me-1"></i>Hủy</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Danh sách sản phẩm -->
+  <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">📋 Danh sách sản phẩm</h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover mb-0 align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Giá (VNĐ)</th>
+                <th class="text-center">Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="productList"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <!-- Footer -->
+    <div class="footer">
+      &copy; 2025 TN Shop | Thiết kế bởi Nhóm TN
+    </div>
+  </div>
+
+  <!-- Bootstrap JS & FontAwesome -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  <!-- JS riêng -->
+  <script src="./js/client.js"></script>
+<script>
+  function updateStats() {
+    const rows = document.querySelectorAll('#productList tr');
+    document.getElementById('totalProducts').textContent = rows.length;
+
+    let total = 0;
+    rows.forEach(row => {
+      const priceCell = row.querySelector('td:nth-child(3)');
+      if (priceCell) {
+        // Lấy giá, bỏ ký tự không phải số và ép thành số nguyên
+        const price = parseInt(priceCell.textContent.replace(/\D/g, ''), 10) || 0;
+        total += price;
+      }
+    });
+
+    // Hiển thị tổng dưới dạng số nguyên có phân cách hàng nghìn
+    document.getElementById('totalValue').textContent = 
+      total.toLocaleString('vi-VN', { maximumFractionDigits: 0 }) + ' VNĐ';
+
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleString('vi-VN');
+  }
+
+  // Theo dõi thay đổi trong danh sách sản phẩm
+  const observer = new MutationObserver(updateStats);
+  observer.observe(document.getElementById('productList'), { childList: true });
+  updateStats();
+</script>
+
+</body>
+</html>
