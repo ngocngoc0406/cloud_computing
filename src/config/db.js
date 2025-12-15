@@ -1,24 +1,35 @@
-// 🔹 Gọi dotenv ngay trong module để đảm bảo env luôn có sẵn
-import dotenv from "dotenv";
-dotenv.config();
+import express from "express";
+import http from "http";
+import { Server } from "socket.io";
+import productRoutes from "./src/routes/productRoutes.js";
+import socketService from "./src/services/socketService.js";
+import { testConnection } from "./src/config/db.js";
 
-import mysql from "mysql2/promise"; // ✅ Dùng bản Promise
+const app = express();
+const server = http.createServer(app);
 
-export const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306
+const io = new Server(server, {
+  cors: {
+    origin: process.env.FRONTEND_URL || "*",
+  },
 });
 
-// ✅ Test connection bằng Promise API
-export const testConnection = async () => {
-  try {
-    const conn = await pool.getConnection();
-    console.log("✅ DB connected!");
-    conn.release();
-  } catch (err) {
-    console.error("❌ DB connection error:", err);
-  }
-};
+socketService(io);
+
+app.use(express.json());
+app.use(express.static("public"));
+
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
+app.use("/api/products", productRoutes);
+
+// ✅ TÊN HÀM ĐÚNG
+await testConnection();
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});

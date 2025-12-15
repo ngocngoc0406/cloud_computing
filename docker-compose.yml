@@ -1,12 +1,22 @@
 services:
   backend:
     image: ngocngoc0406/cloud_computing-backend:latest
-    container_name: product_app
+    container_name: product_app_web2
     ports:
       - "3000:3000"
     environment:
+      PORT: "3000"
+
+      SERVICE_NAME: "web2"
+
       DB_HOST: "bmt6xnejepmufkqprt0s-mysql.services.clever-cloud.com"
       DB_USER: "ueksyeo4q6ksqmd5"
       DB_PASSWORD: "C5t0PdN0hhGboE6XLhrY"
       DB_NAME: "bmt6xnejepmufkqprt0s"
-      PORT: "3000"
+      DB_PORT: "3306"
+
+      DB3_HOST: "btuw0khczd7xm1v1xztm-mysql.services.clever-cloud.com"
+      DB3_USER: "uqhhwtvmz5ad8rzm"
+      DB3_PASSWORD: "Was7BPtnYT0RwLK7aKa6"
+      DB3_NAME: "btuw0khczd7xm1v1xztm"
+      DB3_PORT: "3306"
